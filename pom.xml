@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>xylx1024</groupId>
+    <artifactId>xworks-parent</artifactId>
+    <version>${version.xworks}</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>xworks-commons</module>
+        <module>xworks-dao</module>
+        <module>xworks-service</module>
+        <module>xworks-api</module>
+        <module>xworks-web</module>
+        <module>xworks-admin</module>
+    </modules>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.test.skip>true</maven.test.skip>
+        <version.xworks>1.0.0</version.xworks>
+        <version.java>1.7</version.java>
+        <version.jetty>9.0.0.v20130308</version.jetty>
+        <version.testng>6.9.8</version.testng>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>develop</id>
+            <properties>
+                <app.debug>true</app.debug>
+                <log.level>DEBUG</log.level>
+                <log.appender>console</log.appender>
+                <jdbc.url>jdbc:mysql://11.11.11.11:3306/xwork?useUnicode=true&amp;characterEncoding=UTF-8</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>123456</jdbc.password>
+                <jdbc.show-sql>true</jdbc.show-sql>
+                <redis.name>melinked</redis.name>
+                <redis.host>11.11.11.11</redis.host>
+                <redis.port>6379</redis.port>
+                <elasticsearch.host>11.11.11.11</elasticsearch.host>
+                <elasticsearch.port>9300</elasticsearch.port>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <app.debug>true</app.debug>
+                <log.level>DEBUG</log.level>
+                <log.appender>console</log.appender>
+                <jdbc.url>jdbc:mysql://localhost:3306/xwork?useUnicode=true&amp;characterEncoding=UTF-8</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>123456</jdbc.password>
+                <jdbc.show-sql>true</jdbc.show-sql>
+                <redis.name>melinked</redis.name>
+                <redis.host>11.11.11.11</redis.host>
+                <redis.port>6379</redis.port>
+                <elasticsearch.host>11.11.11.11</elasticsearch.host>
+                <elasticsearch.port>9300</elasticsearch.port>
+            </properties>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <app.debug>false</app.debug>
+                <log.level>WARN</log.level>
+                <log.appender>file</log.appender>
+                <jdbc.url>jdbc:mysql://11.11.11.11:3306/xwork?useUnicode=true&amp;characterEncoding=UTF-8</jdbc.url>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>123456</jdbc.password>
+                <jdbc.show-sql>false</jdbc.show-sql>
+                <redis.name>melinked</redis.name>
+                <redis.host>11.11.11.11</redis.host>
+                <redis.port>6379</redis.port>
+                <elasticsearch.host>11.11.11.11</elasticsearch.host>
+                <elasticsearch.port>9200</elasticsearch.port>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${version.testng}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.2</version>
+                <configuration>
+                    <source>${version.java}</source>
+                    <target>${version.java}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
